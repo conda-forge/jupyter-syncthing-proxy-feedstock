@@ -6,21 +6,21 @@ package:
   version: {{ version }}
 
 source:
-  url: https://pypi.io/packages/source/{{ name[0] }}/{{ name }}/jupyter-syncthing-proxy-{{ version }}.tar.gz
+  url: https://pypi.org/packages/source/{{ name[0] }}/{{ name }}/jupyter-syncthing-proxy-{{ version }}.tar.gz
   sha256: df3d74d140e97ed73a5e4c3862564799dd92c53e8cfd83c8ef29a5d95c82dc27
 
 build:
   noarch: python
   script: {{ PYTHON }} -m pip install . -vv
-  number: 0
+  number: 1
 
 requirements:
   host:
     - pip
-    - python >=3.8
+    - python {{ python_min }}
   run:
     - jupyter-server-proxy
-    - python >=3.8
+    - python >={{ python_min }}
     - syncthing
 
 test:
@@ -30,6 +30,7 @@ test:
     - pip check
   requires:
     - pip
+    - python {{ python_min }}
 
 about:
   home: https://github.com/yuvipanda/jupyter-syncthing-proxy
